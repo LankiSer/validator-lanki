@@ -3,13 +3,16 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  build: {
+    outDir: '../backend/app/static',
+    emptyOutDir: true,
+  },
   server: {
     port: 5173,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
       },
       '/uploads': {
         target: 'http://127.0.0.1:8001',

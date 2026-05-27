@@ -20,7 +20,13 @@ htmlcov/
 # Backend runtime
 backend/shop.db
 backend/uploads/
+backend/app/frontend/node_modules/
+backend/app/frontend/dist/
 backend/.env
+.mini_shop/
+
+# Legacy root frontend (удалён, используйте backend/app/frontend)
+frontend/
 
 # Node / Vue
 node_modules/

@@ -1,3 +1,30 @@
+Metadata-Version: 2.4
+Name: examen3-mini-shop
+Version: 0.1.0
+Summary: Мини интернет-магазин: Vue 3 + FastAPI + SQLAlchemy + SQLite
+Author: Examen3
+License: MIT
+Project-URL: Homepage, https://github.com/yourname/examen3
+Project-URL: Documentation, https://github.com/yourname/examen3#readme
+Keywords: fastapi,vue,shop,sqlite,exam
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: FastAPI
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi==0.115.6
+Requires-Dist: uvicorn[standard]==0.34.0
+Requires-Dist: sqlalchemy==2.0.36
+Requires-Dist: python-jose[cryptography]==3.3.0
+Requires-Dist: bcrypt==4.2.1
+Requires-Dist: python-multipart==0.0.20
+Requires-Dist: pydantic-settings==2.7.0
+Requires-Dist: email-validator==2.2.0
+
 # Mini Shop
 
 Мини интернет-магазин на **Vue 3 + FastAPI + SQLAlchemy + SQLite**.

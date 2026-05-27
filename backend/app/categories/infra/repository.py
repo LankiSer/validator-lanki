@@ -1,15 +1,7 @@
-import re
-
 from sqlalchemy.orm import Session
 
 from app.categories.domain.entity import CategoryEntity
-from app.categories.infra.models import CategoryModel
-
-
-def slugify(text: str) -> str:
-    value = text.lower().strip()
-    value = re.sub(r"[^\w\s-]", "", value)
-    return re.sub(r"[\s_-]+", "-", value)
+from app.core.models import CategoryModel
 
 
 class CategoryRepository:
@@ -17,7 +9,7 @@ class CategoryRepository:
         self._db = db
 
     def _to_entity(self, model: CategoryModel) -> CategoryEntity:
-        return CategoryEntity(id=model.id, name=model.name, slug=model.slug)
+        return CategoryEntity(id=model.id, name=model.name)
 
     def list_all(self) -> list[CategoryEntity]:
         models = self._db.query(CategoryModel).order_by(CategoryModel.name).all()
@@ -28,7 +20,7 @@ class CategoryRepository:
         return self._to_entity(model) if model else None
 
     def create(self, name: str) -> CategoryEntity:
-        model = CategoryModel(name=name, slug=slugify(name))
+        model = CategoryModel(name=name)
         self._db.add(model)
         self._db.commit()
         self._db.refresh(model)
@@ -39,7 +31,6 @@ class CategoryRepository:
         if not model:
             return None
         model.name = name
-        model.slug = slugify(name)
         self._db.commit()
         self._db.refresh(model)
         return self._to_entity(model)

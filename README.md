@@ -1,100 +1,57 @@
-# Mini Shop
+# Mini Shop — строительные материалы
 
-Мини интернет-магазин на **Vue 3 + FastAPI + SQLAlchemy + SQLite**.
+- `backend/` — FastAPI + SQLAlchemy + SQLite  
+- `frontend/` — Vue 3 + Vite  
 
-В pip-пакет входят **исходники Vue** (`.vue`, `.js`), без production-сборки — можно править на экзамене.
+**Поиск и фильтрация (код для печати):** [GUIDE.md](GUIDE.md)
 
-## Установка через pip (экзамен)
+## Запуск
+
+**Backend:**
 
 ```bash
-pip install examen3-mini-shop
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
 ```
 
-### Запуск
-
-**Терминал 1 — backend:**
+**Frontend:**
 
 ```bash
-mini-shop
-```
-
-**Терминал 2 — frontend (исходники Vue):**
-
-```bash
-mini-shop frontend
-```
-
-- Backend API: http://127.0.0.1:8000/docs  
-- Frontend: http://localhost:5173  
-
-**Админ:** `admin@example.com` / `admin123`
-
-### Где лежат исходники после pip install
-
-```bash
-mini-shop frontend-path
-```
-
-Обычно это что-то вроде:
-
-`.../site-packages/app/frontend/src/`
-
-Там можно открыть проект в IDE и менять компоненты — `npm run dev` подхватит изменения.
-
-Данные (БД, загрузки): `~/.mini_shop/`
-
-## Публикация на PyPI
-
-```bash
-python scripts/build_package.py
-pip install twine
-twine upload dist/*
-```
-
-Проверка на TestPyPI:
-
-```bash
-twine upload --repository testpypi dist/*
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ examen3-mini-shop
-```
-
-> Имя `examen3-mini-shop` должно быть свободно на PyPI. Если занято — измените `name` в `pyproject.toml`.
-
-## Разработка из репозитория
-
-### Backend
-
-```bash
-pip install -e .
-mini-shop --reload --port 8000
-```
-
-### Frontend
-
-```bash
-cd backend/app/frontend
+cd frontend
 npm install
 npm run dev
 ```
 
-## Структура
+- API: http://127.0.0.1:8000/docs  
+- Сайт: http://localhost:5173  
 
-```
-backend/app/
-├── auth/ categories/ products/   # DDD-модули API
-├── frontend/                     # исходники Vue (в pip-пакете)
-│   ├── src/components/
-│   ├── src/views/
-│   └── package.json
-├── cli.py                        # команда mini-shop
-└── main.py
-pyproject.toml
+После смены моделей удалите БД:
+
+```powershell
+Remove-Item "$env:USERPROFILE\.mini_shop\shop.db" -ErrorAction SilentlyContinue
 ```
 
-## Возможности
+## Пользователи
 
-- Регистрация и авторизация (JWT)
-- Каталог товаров с фильтром по категориям
-- Карточка товара с фото
-- CRUD товаров и категорий (только admin)
-- Загрузка изображений товаров
+| Роль | Логин | Пароль |
+|------|-------|--------|
+| Администратор | admin | admin123 |
+| Менеджер | manager | manager123 |
+| Клиент | client | client123 |
+| Гость | кнопка на экране входа | — |
+
+## База данных
+
+| Файл | Описание |
+|------|----------|
+| `backend/app/core/models.py` | Модели SQLAlchemy |
+| `backend/database/init.sql` | SQL таблиц |
+| `backend/database/ER.md` | ER-диаграмма |
+| `backend/database/SCHEMA.md` | 3NF |
+
+БД: `%USERPROFILE%\.mini_shop\shop.db` (создаётся при старте backend).
+
+API: префикс `/api`.

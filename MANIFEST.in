@@ -1,4 +1,0 @@
-include README.md
-recursive-include backend/app/frontend *.vue *.js *.css *.html *.json
-prune backend/app/frontend/node_modules
-prune backend/app/frontend/dist

@@ -1,51 +1,26 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
 venv/
 .venv/
-env/
 *.egg-info/
-.eggs/
+**/*.egg-info/
 dist/
 build/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
 
 # Backend runtime
 backend/shop.db
 backend/uploads/
-backend/app/frontend/node_modules/
-backend/app/frontend/dist/
-backend/.env
 .mini_shop/
 
-# Legacy root frontend (удалён, используйте backend/app/frontend)
-frontend/
-
-# Node / Vue
-node_modules/
+# Frontend
+frontend/node_modules/
 frontend/dist/
-frontend/.vite/
-*.local
 
-# Logs
-*.log
-npm-debug.log*
-
-# OS / IDE
-.DS_Store
-Thumbs.db
+# IDE / OS
 .idea/
 .vscode/
-*.swp
-*.swo
-
-# Env secrets
+.DS_Store
+Thumbs.db
 .env
 .env.*

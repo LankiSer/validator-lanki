@@ -5,4 +5,3 @@ from dataclasses import dataclass
 class CategoryEntity:
     id: int
     name: str
-    slug: str

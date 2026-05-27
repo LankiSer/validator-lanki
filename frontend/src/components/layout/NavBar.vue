@@ -1,21 +1,13 @@
 <template>
   <header class="navbar">
     <div class="container navbar-inner">
-      <router-link to="/" class="logo">Mini Shop</router-link>
+      <router-link to="/" class="logo">СтройМатериалы</router-link>
       <nav class="links">
-        <router-link to="/">Каталог</router-link>
-        <template v-if="user">
-          <span class="user">{{ user.username }}</span>
-          <button class="btn btn-secondary" @click="logout">Выйти</button>
-        </template>
-        <template v-else>
-          <router-link to="/login">Вход</router-link>
-          <router-link to="/register">Регистрация</router-link>
-        </template>
-        <template v-if="user?.is_admin">
-          <router-link to="/admin/products">Товары</router-link>
-          <router-link to="/admin/categories">Категории</router-link>
-        </template>
+        <router-link to="/">Товары</router-link>
+        <router-link v-if="canViewOrders()" to="/orders">Заказы</router-link>
+        <span v-if="user" class="user">{{ user.full_name }} ({{ roleLabel }})</span>
+        <button v-if="user || !isGuest()" class="btn btn-secondary" @click="logout">Выйти</button>
+        <router-link v-else to="/login">Вход</router-link>
       </nav>
     </div>
   </header>
@@ -24,13 +16,31 @@
 <script setup>
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { clearAuth, getUser } from '../../store/auth'
+import {
+  canViewOrders,
+  clearAuth,
+  getRole,
+  getUser,
+  isGuest,
+  ROLES,
+  setGuest,
+} from '../../store/auth'
 
 const router = useRouter()
 const user = computed(() => getUser())
+const roleLabel = computed(() => {
+  const map = {
+    [ROLES.ADMIN]: 'Администратор',
+    [ROLES.MANAGER]: 'Менеджер',
+    [ROLES.CLIENT]: 'Клиент',
+    [ROLES.GUEST]: 'Гость',
+  }
+  return map[getRole()] || 'Гость'
+})
 
 function logout() {
   clearAuth()
+  setGuest()
   router.push('/login')
 }
 </script>
@@ -40,7 +50,6 @@ function logout() {
   background: white;
   border-bottom: 1px solid var(--border);
 }
-
 .navbar-inner {
   display: flex;
   justify-content: space-between;
@@ -48,19 +57,16 @@ function logout() {
   padding-top: 14px;
   padding-bottom: 14px;
 }
-
 .logo {
   font-weight: 800;
-  font-size: 1.2rem;
 }
-
 .links {
   display: flex;
   gap: 14px;
   align-items: center;
 }
-
 .user {
   color: var(--muted);
+  font-size: 0.9rem;
 }
 </style>

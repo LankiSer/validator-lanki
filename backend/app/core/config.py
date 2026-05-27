@@ -2,8 +2,6 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings
 
-from app.paths import FRONTEND_DIR
-
 DATA_DIR = Path.home() / ".mini_shop"
 
 
@@ -22,4 +20,3 @@ settings = Settings()
 def ensure_data_dirs() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     Path(settings.upload_dir).mkdir(parents=True, exist_ok=True)
-    FRONTEND_DIR.mkdir(parents=True, exist_ok=True)

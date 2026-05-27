@@ -6,3 +6,5 @@ bcrypt==4.2.1
 python-multipart==0.0.20
 pydantic-settings==2.7.0
 email-validator==2.2.0
+pillow==11.1.0
+validator-lanki

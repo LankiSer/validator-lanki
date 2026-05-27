@@ -1,20 +1,19 @@
 <template>
   <form class="card auth-form" @submit.prevent="handleSubmit">
-    <h2>{{ title }}</h2>
-    <div v-if="showEmail" class="form-group">
-      <label>Email</label>
-      <input v-model="form.email" class="input" type="email" required />
-    </div>
-    <div v-if="showUsername" class="form-group">
-      <label>Имя пользователя</label>
-      <input v-model="form.username" class="input" required />
+    <h2>Вход в систему</h2>
+    <div class="form-group">
+      <label>Логин</label>
+      <input v-model="form.login" class="input" required />
     </div>
     <div class="form-group">
       <label>Пароль</label>
       <input v-model="form.password" class="input" type="password" required />
     </div>
     <p v-if="error" class="error">{{ error }}</p>
-    <button class="btn btn-primary" type="submit">{{ buttonText }}</button>
+    <button class="btn btn-primary" type="submit">Войти</button>
+    <button class="btn btn-secondary guest-btn" type="button" @click="$emit('guest')">
+      Войти как гость
+    </button>
   </form>
 </template>
 
@@ -22,14 +21,12 @@
 import { reactive, ref } from 'vue'
 
 const props = defineProps({
-  title: String,
-  buttonText: String,
-  showEmail: { type: Boolean, default: true },
-  showUsername: { type: Boolean, default: false },
   onSubmit: { type: Function, required: true },
 })
 
-const form = reactive({ email: '', username: '', password: '' })
+defineEmits(['guest'])
+
+const form = reactive({ login: '', password: '' })
 const error = ref('')
 
 async function handleSubmit() {
@@ -46,5 +43,9 @@ async function handleSubmit() {
 .auth-form {
   max-width: 420px;
   margin: 0 auto;
+}
+.guest-btn {
+  width: 100%;
+  margin-top: 8px;
 }
 </style>

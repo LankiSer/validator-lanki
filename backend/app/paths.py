@@ -1,4 +1,5 @@
 from pathlib import Path
 
 APP_DIR = Path(__file__).resolve().parents[1]
-FRONTEND_DIR = APP_DIR / "frontend"
+PROJECT_ROOT = APP_DIR.parent.parent
+FRONTEND_DIR = PROJECT_ROOT / "frontend"

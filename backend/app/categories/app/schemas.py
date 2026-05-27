@@ -2,14 +2,13 @@ from pydantic import BaseModel, Field
 
 
 class CategoryCreate(BaseModel):
-    name: str = Field(min_length=2, max_length=120)
+    name: str = Field(min_length=2, max_length=50)
 
 
 class CategoryUpdate(BaseModel):
-    name: str = Field(min_length=2, max_length=120)
+    name: str = Field(min_length=2, max_length=50)
 
 
 class CategoryResponse(BaseModel):
     id: int
     name: str
-    slug: str
